@@ -92,7 +92,6 @@ document.addEventListener('gameEnd', (over) => {
     const gameOver = document.createElement("p");
     const results = document.querySelector("div");
     gameOver.textContent = "Game Over!"
-
     results.appendChild(gameOver);
     document.removeEventListener('GameEnd', over);
 });
