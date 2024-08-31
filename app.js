@@ -1,4 +1,4 @@
-
+// variables
 let humanScore = 0;
 let computerScore = 0;
 
@@ -29,7 +29,8 @@ function playRound(humanChoice, computerChoice) {
 
     if (humanChoice === "rock" && computerChoice === "paper") {
         computerScore++;
-        return "You lose! " + computerChoice + " beats " + humanChoice + " !";        } else if (humanChoice === "rock" && computerChoice === "scissors") {
+        return "You lose! " + computerChoice + " beats " + humanChoice + " !";        
+    } else if (humanChoice === "rock" && computerChoice === "scissors") {
         humanScore++;
         return "You win! " + humanChoice + " beats " + computerChoice + " !";
     } else if (humanChoice === "paper" && computerChoice === "rock") {
@@ -47,18 +48,25 @@ function playRound(humanChoice, computerChoice) {
     } else if (humanChoice === computerChoice) {
         return "It's a tie!";
     }
-
 }
 
-function playGame() {
-    for (let i = 0; i < 5; i++) {
-        let humanSelection = getHumanChoice();
-        let computerSelection = getComputerChoice();
-        console.log(playRound(humanSelection, computerSelection));
-    }
-}
+function playGame(humanSelection) {
+    // for (let i = 0; i < 5; i++) {
+    let computerSelection = getComputerChoice();
+    console.log(playRound(humanSelection, computerSelection));
+    // }
+}   
+
+let buttons = document.querySelectorAll("button");
+
+buttons.forEach(button => {
+    button.addEventListener('click', (event) => {
+        let humanSelection = event.target.id;
+        playGame(humanSelection);
+    });
+});
 
 
-playGame();
+// playGame();
 console.log("Human score: " + humanScore)
 console.log("Computer score: " + computerScore) 
