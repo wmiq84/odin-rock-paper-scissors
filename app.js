@@ -1,7 +1,11 @@
-// variables
+// variables and constants
+
+const gameEndEvent = new Event('gameEnd')
+
 let humanScore = 0;
 let computerScore = 0;
 
+// functions 
 function getComputerChoice() {
     let rand = 3 * Math.random();
     if (rand >= 2) {
@@ -53,10 +57,14 @@ function playRound(humanChoice, computerChoice) {
 function playGame(humanSelection) {
     // for (let i = 0; i < 5; i++) {
     let computerSelection = getComputerChoice();
-    console.log(playRound(humanSelection, computerSelection));
+    displayRound(humanSelection, computerSelection);
+    displayScores();
+    checkScores();
+
     // }
 }   
 
+// a round of rps for each button click
 let buttons = document.querySelectorAll("button");
 
 buttons.forEach(button => {
@@ -66,7 +74,31 @@ buttons.forEach(button => {
     });
 });
 
+function displayRound(humanSelection, computerSelection) {
+    const results = document.querySelector("div");
+    const round = document.createElement("p");
+    round.textContent = playRound(humanSelection, computerSelection);
+    results.appendChild(round);
+}
 
-// playGame();
-console.log("Human score: " + humanScore)
-console.log("Computer score: " + computerScore) 
+function displayScores() {
+    const results = document.querySelector("div");
+    const scores = document.createElement("p");
+    scores.textContent = "Human score: " + humanScore + ", Computer score: " + computerScore;
+    results.appendChild(scores);
+}
+
+document.addEventListener('gameEnd', (over) => {
+    const gameOver = document.createElement("p");
+    const results = document.querySelector("div");
+    gameOver.textContent = "Game Over!"
+
+    results.appendChild(gameOver);
+    document.removeEventListener('GameEnd', over);
+});
+
+function checkScores() {
+    if (humanScore == 5 || computerScore == 5) {
+        document.dispatchEvent(gameEndEvent);
+    }
+}
