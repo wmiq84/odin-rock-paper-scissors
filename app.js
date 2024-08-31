@@ -1,5 +1,4 @@
 // variables and constants
-
 const gameEndEvent = new Event('gameEnd')
 
 let humanScore = 0;
@@ -89,11 +88,14 @@ function displayScores() {
 }
 
 document.addEventListener('gameEnd', (over) => {
+    const body = document.querySelector("body");
     const gameOver = document.createElement("p");
     const results = document.querySelector("div");
-    gameOver.textContent = "Game Over!"
+    gameOver.textContent = "Game Over! Refresh to play again."
     results.appendChild(gameOver);
-    document.removeEventListener('GameEnd', over);
+    buttons.forEach(button => {
+        body.removeChild(button);
+    });
 });
 
 function checkScores() {
